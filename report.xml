@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites>
+  <testsuite name="fastlane.lanes">
+    
+    
+    
+      
+      <testcase classname="fastlane.lanes" name="00: Verifying required fastlane version" time="0.003981">
+        
+      </testcase>
+    
+      
+      <testcase classname="fastlane.lanes" name="01: default_platform" time="0.004369">
+        
+      </testcase>
+    
+      
+      <testcase classname="fastlane.lanes" name="02: Switch to ios testhost lane" time="0.004709">
+        
+      </testcase>
+    
+      
+      <testcase classname="fastlane.lanes" name="03: Switch to ios sethost lane" time="0.003279">
+        
+      </testcase>
+    
+      
+      <testcase classname="fastlane.lanes" name="04: set_info_plist_value" time="0.009853">
+        
+      </testcase>
+    
+      
+      <testcase classname="fastlane.lanes" name="05: set_info_plist_value" time="0.008369">
+        
+      </testcase>
+    
+      
+      <testcase classname="fastlane.lanes" name="06: set_info_plist_value" time="0.009392">
+        
+      </testcase>
+    
+      
+      <testcase classname="fastlane.lanes" name="07: set_info_plist_value" time="0.010555">
+        
+      </testcase>
+    
+      
+      <testcase classname="fastlane.lanes" name="08: Switch to ios to_pgyer lane" time="0.003711">
+        
+      </testcase>
+    
+      
+      <testcase classname="fastlane.lanes" name="09: Switch to ios build lane" time="0.002535">
+        
+      </testcase>
+    
+      
+      <testcase classname="fastlane.lanes" name="10: get_build_number" time="1.841839">
+        
+      </testcase>
+    
+      
+      <testcase classname="fastlane.lanes" name="11: increment_build_number_in_plist" time="0.848208">
+        
+      </testcase>
+    
+      
+      <testcase classname="fastlane.lanes" name="12: increment_version_number_in_plist" time="0.480483">
+        
+      </testcase>
+    
+      
+      <testcase classname="fastlane.lanes" name="13: gym" time="299.742532">
+        
+      </testcase>
+    
+      
+      <testcase classname="fastlane.lanes" name="14: pgyer" time="7.764365">
+        
+      </testcase>
+    
+      
+      <testcase classname="fastlane.lanes" name="15: slack" time="1.483786">
+        
+      </testcase>
+    
+  </testsuite>
+</testsuites>
