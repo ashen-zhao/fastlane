@@ -19,6 +19,7 @@ default_platform :ios
 
 platform :ios do
   @BUILD_NUM = ""
+  @IPAPATH = ""
   before_all do
     ENV["SLACK_URL"] = "https://hooks.slack.com/services/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"
     # cocoapods
@@ -56,7 +57,9 @@ platform :ios do
 
 
   lane :build do|options|
-
+    slack(
+      message: "Begin Build."
+    )
     method = options[:method]
 
     currentTime = Time.new.strftime("%y%m%d")
@@ -82,7 +85,7 @@ platform :ios do
 
     outputDir = "./fastlane/build/#{Time.now.strftime('%y%m%d')}"
     outputName = "#{ENV['SCHEME_NAME']}-#{Time.now.strftime("%Y-%m-%d %H:%M:%S")}"
-
+    IPAPATH = outputDir + "/" + outputName + "ipa"
     # 创建生成证书
     # cert(output_path: outputDir + "/#{ENV['SCHEME_NAME']}/cert")
     # 创建描述文件pp
@@ -90,7 +93,7 @@ platform :ios do
 
     gym(
       clean: true,  # 在构建前先clean
-      silent: true,  # 隐藏没有必要的信息
+      # silent: true,  # 隐藏没有必要的信息 
       scheme: ENV['SCHEME_NAME'],
       configuration: "Release",
       export_method:method,
@@ -98,13 +101,26 @@ platform :ios do
       output_name: outputName,
       include_bitcode: false
     )
+    slack(
+      message: "Successfully Build."
+    )
   end
+
+  lane :to_install do
+    sh "ideviceinstaller -i #{IPAPATH}"
+  end 
 
   desc "上传到蒲公英"
   lane :to_pgyer do|options|
     build(method:"ad-hoc")
     txt = options[:txt]
+    slack(
+      message: "Begin Pgyer."
+    )
     pgyer(api_key: "81b2cc1f257067babe9bfbdb4de90031", user_key: "7ae62d3b148cab7ec32459d9ecd657bc", update_description: txt)    
+    slack(
+      message: "Successfully Pgyer."
+    )
   end
   desc "开发环境上传到蒲公英"
   lane :to_pgyer_dev do|options|
@@ -130,7 +146,13 @@ platform :ios do
   lane :to_appstore do 
     releasehost
     build(method:"app-store")
+    slack(
+      message: "Begin AppStore."
+    )
     pilot(skip_waiting_for_build_processing:true)
+    slack(
+      message: "Successfully AppStore."
+    )
   end
 
   after_all do |lane|
