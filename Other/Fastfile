@@ -50,7 +50,7 @@ platform :ios do
     sethost(hosturl:"http://192.168.1.9:8800", hosturlapp:"http://192.168.1.9:8800", shareurl:"http://192.168.1.9:8070")
   end
   lane :releasehost do
-    sethost(hosturl:"", hosturlapp:"https://galaxy.uubee.com/galaxy_appserver", shareurl:"https://merchant.uubee.com")
+    sethost(hosturl:"", hosturlapp:"", shareurl:"")
   end
 
 
@@ -89,9 +89,15 @@ platform :ios do
     # 创建生成证书
     # cert(output_path: outputDir + "/#{ENV['SCHEME_NAME']}/cert")
     # 创建描述文件pp
-    
-    sigh(output_path: outputDir + "/#{ENV['SCHEME_NAME']}/sign", adhoc:method=='ad-hoc'?true:false)
-
+    sigh(output_path: outputDir + "/#{ENV['SCHEME_NAME']}/sign", 
+      adhoc:method=='ad-hoc'?true:false,
+      app_identifier:ENV['APP_IDENTIFIER'],
+      force:true
+      )
+    sigh(output_path: outputDir + "/#{ENV['EX_SCHEME']}/sign",
+       adhoc:method=='ad-hoc'?true:false,
+       app_identifier:ENV['APP_EX_IDENTIFIER'],
+       force:true)
     gym(
       clean: true,  # 在构建前先clean
       silent: true,  # 隐藏没有必要的信息 
@@ -105,7 +111,7 @@ platform :ios do
       export_options: {
                 provisioningProfiles: {
                   ENV['APP_IDENTIFIER'] => "match AdHoc #{ENV['APP_IDENTIFIER']}",
-                  ENV['APP_EX_IDENTIFIER'] => "exAdhoc"
+                  ENV['APP_EX_IDENTIFIER'] => "match AdHoc #{ENV['APP_EX_IDENTIFIER']}"
                 }
             }
     )
@@ -127,7 +133,7 @@ platform :ios do
     slack(
       message: "Begin Pgyer."
     )
-    pgyer(api_key: "81b2cc1f257067babe9bfbdb4de90031", user_key: "7ae62d3b148cab7ec32459d9ecd657bc", update_description: txt)    
+    pgyer(api_key: "xxxxxx", user_key: "xxxxxxxxx", update_description: txt)    
     slack(
       message: "Successfully Pgyer."
     )
